@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_ping"
+            android:icon="@drawable/ic_menu_ping"
+            android:title="Ping" />
+        <item
+            android:id="@+id/nav_traceroute"
+            android:icon="@drawable/ic_menu_traceroute"
+            android:title="Traceroute" />
+        <item
+            android:id="@+id/nav_arp"
+            android:icon="@drawable/ic_menu_arp"
+            android:title="ARP Table" />
+        <item
+            android:id="@+id/nav_dnslookup"
+            android:icon="@drawable/ic_menu_dnslookup"
+            android:title="DNS Lookup" />
+        <item
+            android:id="@+id/nav_whois"
+            android:icon="@drawable/ic_menu_whois"
+            android:title="Whois" />
+        <item
+            android:id="@+id/nav_portscanner"
+            android:icon="@drawable/ic_menu_portscanner"
+            android:title="Port Scanner" />
+        <item
+            android:id="@+id/nav_wifiscanner"
+            android:icon="@drawable/ic_menu_wifiscanner"
+            android:title="Wi-Fi Scanner" />
+        <item
+            android:id="@+id/nav_hostmonitor"
+            android:icon="@drawable/ic_menu_hostmonitor"
+            android:title="Host Monitor" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Share" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Send" />
+        </menu>
+    </item>
+
+</menu>
