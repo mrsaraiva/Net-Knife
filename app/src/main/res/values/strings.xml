@@ -5,4 +5,12 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="title_activity_ping">Ping</string>
+    <string name="title_activity_traceroute">Traceroute</string>
+    <string name="title_activity_arp">Arp</string>
+    <string name="title_activity_dnslookup">DNS Lookup</string>
+    <string name="title_activity_whois">Whois</string>
+    <string name="title_activity_port_scanner">Port Scanner</string>
+    <string name="title_activity_wifi_scanner">Wi-Fi Scanner</string>
+    <string name="title_activity_host_monitor">Host Monitor</string>
 </resources>

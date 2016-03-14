@@ -1,5 +1,6 @@
 package matrix.the.net_knife;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -83,20 +84,36 @@ public class MainActivity extends AppCompatActivity
         switch (id)
         {
             case R.id.nav_ping:
+                Intent pingIntent = new Intent(MainActivity.this, Ping.class);
+                MainActivity.this.startActivity(pingIntent);
                 break;
             case R.id.nav_traceroute:
+                Intent traceIntent = new Intent(MainActivity.this, Traceroute.class);
+                MainActivity.this.startActivity(traceIntent);
                 break;
             case R.id.nav_arp:
+                Intent arpIntent = new Intent(MainActivity.this, Arp.class);
+                MainActivity.this.startActivity(arpIntent);
                 break;
             case R.id.nav_dnslookup:
+                Intent dnsIntent = new Intent(MainActivity.this, DNSLookup.class);
+                MainActivity.this.startActivity(dnsIntent);
                 break;
             case R.id.nav_whois:
+                Intent whoisIntent = new Intent(MainActivity.this, Whois.class);
+                MainActivity.this.startActivity(whoisIntent);
                 break;
             case R.id.nav_portscanner:
+                Intent portScannerIntent = new Intent(MainActivity.this, PortScanner.class);
+                MainActivity.this.startActivity(portScannerIntent);
                 break;
             case R.id.nav_wifiscanner:
+                Intent wifiScannerIntent = new Intent(MainActivity.this, WifiScanner.class);
+                MainActivity.this.startActivity(wifiScannerIntent);
                 break;
             case R.id.nav_hostmonitor:
+                Intent hostMonitorIntent = new Intent(MainActivity.this, HostMonitor.class);
+                MainActivity.this.startActivity(hostMonitorIntent);
                 break;
         }
 

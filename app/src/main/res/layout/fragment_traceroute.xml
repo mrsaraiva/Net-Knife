@@ -1,0 +1,41 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="matrix.the.net_knife.TracerouteFragment"
+    tools:showIn="@layout/activity_traceroute">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        android:weightSum="5"
+        <EditText
+            android:id="@+id/traceEditText"
+            android:layout_weight="4"
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            android:ellipsize="start"
+            android:gravity="center"
+            android:hint="Hostname or IP Address"
+            android:inputType="text"
+            android:background="@drawable/style_edittext"
+            android:layout_alignParentTop="true"
+            />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Trace"
+            android:id="@+id/traceButton"
+            android:layout_alignTop="@+id/traceEditText"
+            android:layout_toRightOf="@+id/traceEditText"
+            />
+    </LinearLayout>
+
+</RelativeLayout>
