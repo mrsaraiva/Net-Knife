@@ -34,7 +34,7 @@ public class PingTask extends AsyncTask<String, String, Void>
 
     @Override
     protected Void doInBackground(String... params) {
-        String pingCommand = "ping -c 5";
+        String pingCommand = "su -c /data/data/matrix.the.net_knife/busybox ping -c 5";
         String hostName = hostAdress;
         String cmd = pingCommand + " " + hostName;
 
@@ -58,15 +58,12 @@ public class PingTask extends AsyncTask<String, String, Void>
             }
 
             InputStream input = p.getInputStream();
-            System.out.println(input.read());
             BufferedReader in = new BufferedReader(new InputStreamReader(input));
 
-            StringBuffer buffer = new StringBuffer();
-            String line = "";
+            String line = "P" + in.readLine();
+            System.out.println(line);
+            publishProgress(line);
             while ((line = in.readLine()) != null) {
-                buffer.append(line);
-                buffer.append("\n");
-                System.out.println(line);
                 publishProgress(line);
             }
 
