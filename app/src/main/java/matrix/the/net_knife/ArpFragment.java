@@ -56,20 +56,14 @@ public class ArpFragment extends Fragment {
                     InputStream input = p.getInputStream();
                     System.out.println(input.read());
                     BufferedReader in = new BufferedReader(new InputStreamReader(input));
-                    StringBuffer buffer = new StringBuffer();
                     String line = "";
                     System.out.println(in.readLine());
                     while ((line = in.readLine()) != null)
                     {
-                        //System.out.println(in.readLine());
-                        //buffer.append(line);
-                        //buffer.append("\n");
                         arpResultText.append(line);
                         arpResultText.append("\n");
                     }
 
-                    //String bufferStr = buffer.toString();
-                    //arpResultText.setText(bufferStr);
 
 
                 } catch (Exception e) {

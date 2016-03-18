@@ -64,15 +64,9 @@ public class TracerouteFragment extends Fragment {
                     System.out.println(in.readLine());
                     while ((line = in.readLine()) != null)
                     {
-                        //System.out.println(in.readLine());
-                        //buffer.append(line);
-                        //buffer.append("\n");
                         traceResultText.append(line);
                         traceResultText.append("\n");
                     }
-
-                    //String bufferStr = buffer.toString();
-                    //traceResultText.setText(bufferStr);
 
                 } catch (Exception e) {
                     e.printStackTrace();
