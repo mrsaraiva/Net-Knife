@@ -21,7 +21,7 @@ public class PingFragment extends Fragment{
     EditText pingEditText;
     TextView pingResultText;
     View view;
-
+    Typeface font;
 
     public PingFragment() {
     }
@@ -29,26 +29,30 @@ public class PingFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        Typeface font = Typeface.createFromAsset( getActivity().getAssets(), "fontawesome-webfont.ttf" );
-
-//        System.out.println(getActivity().getAssets().list("fontawesome-webfont.ttf"));
-
         view = inflater.inflate(R.layout.fragment_ping, container, false);
+
+        font = Typeface.createFromAsset(getActivity().getAssets(), "fontawesome-webfont.ttf");
         pingButton = (Button) view.findViewById(R.id.pingButton);
         pingButton.setTypeface(font);
         pingButton.setTextSize(20);
+
         pingEditText = (EditText)view.findViewById(R.id.pingEditText);
         pingResultText = (TextView)view.findViewById(R.id.pingResultText);
+
+        setEventos();
+
+        return view;
+    }
+
+    private void setEventos()
+    {
         pingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-
-                PingTask ping = new PingTask(pingEditText.getText().toString(), pingResultText, getActivity().getApplicationContext());
+                PingTask ping = new PingTask(pingEditText.getText().toString(), pingResultText, getActivity().getBaseContext());
                 ping.execute();
-
             }
         });
-        return view;
     }
 }
