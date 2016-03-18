@@ -41,6 +41,30 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        try
+        {
+            Process su = Runtime.getRuntime().exec("su");
+            System.out.println("Creating Busybox symlink...");
+            Process p = Runtime.getRuntime().exec("ln -s /data/data/matrix.the.net_knife/lib/libbusybox.so /data/data/matrix.the.net_knife/busybox");
+            p.waitFor();
+            int len;
+            if ((len = p.getErrorStream().available()) > 0)
+            {
+                System.out.println(p.exitValue());
+                byte[] buf = new byte[len];
+                p.getErrorStream().read(buf);
+                System.out.println("Couldn't create Busybox symlink :(");
+                System.out.println("Command error:\t\"" + new String(buf) + "\"");
+            }
+
+                System.out.println("Busybox symlink created!");
+        }
+        catch (Exception e)
+        {
+            // stub
+            e.printStackTrace();
+        }
     }
 
     @Override

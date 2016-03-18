@@ -23,11 +23,11 @@ public class TracerouteFragment extends Fragment {
     TextView traceResultText;
     View view;
 
-    public TracerouteFragment() {}
+    public TracerouteFragment() {
+    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_traceroute, container, false);
         traceButton = (Button) view.findViewById(R.id.traceButton);
         traceEditText = (EditText)view.findViewById(R.id.traceEditText);
@@ -36,11 +36,10 @@ public class TracerouteFragment extends Fragment {
             @Override
             public void onClick(View v)
             {
-                /*
-                String traceCommand = "trace -c 5";
+                String traceCommand = "su -c /data/data/matrix.the.net_knife/busybox traceroute -w 1 -n -m 20";
                 String hostName = traceEditText.getText().toString();
                 String cmd = traceCommand + " " + hostName;
-                traceResultText.setText("Testando o botão antes do trace...");
+                traceResultText.setText("");
 
                 try
                 {
@@ -65,18 +64,20 @@ public class TracerouteFragment extends Fragment {
                     System.out.println(in.readLine());
                     while ((line = in.readLine()) != null)
                     {
-                        System.out.println(in.readLine());
-                        buffer.append(line);
-                        buffer.append("\n");
+                        //System.out.println(in.readLine());
+                        //buffer.append(line);
+                        //buffer.append("\n");
+                        traceResultText.append(line);
+                        traceResultText.append("\n");
                     }
 
-                    String bufferStr = buffer.toString();
-                    traceResultText.setText(bufferStr);
+                    //String bufferStr = buffer.toString();
+                    //traceResultText.setText(bufferStr);
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                */
+
             }
         });
         return view;

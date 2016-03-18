@@ -9,5 +9,29 @@
     tools:context="matrix.the.net_knife.ArpFragment"
     tools:showIn="@layout/activity_arp">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout">
+        android:weightSum="5"
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Get ARP Table"
+            android:id="@+id/arpButton"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/arpResultText"
+        android:layout_marginTop="75dp"
+        android:layout_below="@+id/linearLayout"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
