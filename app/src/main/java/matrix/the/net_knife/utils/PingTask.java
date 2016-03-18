@@ -29,7 +29,7 @@ public class PingTask extends AsyncTask<String, String, Void>
     {
         hostAdress = ip;
         resultText = (TextView) view;
-        progress= new ProgressDialog(context);
+        progress   = new ProgressDialog(context);
     }
 
     @Override
@@ -59,18 +59,15 @@ public class PingTask extends AsyncTask<String, String, Void>
             InputStream input = p.getInputStream();
             System.out.println(input.read());
             BufferedReader in = new BufferedReader(new InputStreamReader(input));
+
             StringBuffer buffer = new StringBuffer();
             String line = "";
-            System.out.println(in.readLine());
-            while ((line = in.readLine()) != null)
-            {
-                System.out.println(in.readLine());
+            while ((line = in.readLine()) != null) {
                 buffer.append(line);
                 buffer.append("\n");
-                publishProgress(buffer.toString());
+                System.out.println(line);
+                publishProgress(line);
             }
-
-
 
         } catch (Exception e) {
             e.printStackTrace();
