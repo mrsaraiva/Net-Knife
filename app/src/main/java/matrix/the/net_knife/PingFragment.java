@@ -1,5 +1,6 @@
 package matrix.the.net_knife;
 
+import android.graphics.Typeface;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -28,8 +29,14 @@ public class PingFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+        Typeface font = Typeface.createFromAsset( getActivity().getAssets(), "fontawesome-webfont.ttf" );
+
+//        System.out.println(getActivity().getAssets().list("fontawesome-webfont.ttf"));
+
         view = inflater.inflate(R.layout.fragment_ping, container, false);
         pingButton = (Button) view.findViewById(R.id.pingButton);
+        pingButton.setTypeface(font);
+        pingButton.setTextSize(20);
         pingEditText = (EditText)view.findViewById(R.id.pingEditText);
         pingResultText = (TextView)view.findViewById(R.id.pingResultText);
         pingButton.setOnClickListener(new View.OnClickListener() {
