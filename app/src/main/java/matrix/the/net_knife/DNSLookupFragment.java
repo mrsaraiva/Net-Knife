@@ -13,6 +13,8 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import matrix.the.net_knife.utils.DNSLookupTask;
+
 /**
  * A placeholder fragment containing a simple view.
  */
@@ -36,49 +38,9 @@ public class DNSLookupFragment extends Fragment {
             @Override
             public void onClick(View v)
             {
-                String dnsCommand = "su -c /data/data/matrix.the.net_knife/busybox nslookup";
-                String hostName = dnsEditText.getText().toString();
-                String cmd = dnsCommand + " " + hostName;
                 dnsResultText.setText("");
-
-                try
-                {
-                    System.out.println(cmd);
-                    Process p = Runtime.getRuntime().exec(cmd);
-                    p.waitFor();
-
-                    int len;
-                    if ((len = p.getErrorStream().available()) > 0)
-                    {
-                        System.out.println(p.exitValue());
-                        byte[] buf = new byte[len];
-                        p.getErrorStream().read(buf);
-                        System.out.println("Command error:\t\"" + new String(buf) + "\"");
-                    }
-
-                    InputStream input = p.getInputStream();
-                    System.out.println(input.read());
-                    BufferedReader in = new BufferedReader(new InputStreamReader(input));
-                    StringBuffer buffer = new StringBuffer();
-                    String line = "";
-                    System.out.println(in.readLine());
-                    while ((line = in.readLine()) != null)
-                    {
-                        //System.out.println(in.readLine());
-                        //buffer.append(line);
-                        //buffer.append("\n");
-                        dnsResultText.append(line);
-                        dnsResultText.append("\n");
-                    }
-
-                    //String bufferStr = buffer.toString();
-                    //dnsResultText.setText(bufferStr);
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
+                DNSLookupTask dnslookup = new DNSLookupTask(dnsEditText.getText().toString(), dnsResultText, getActivity().getApplicationContext());
+                dnslookup.execute();
             }
         });
         return view;

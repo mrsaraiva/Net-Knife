@@ -36,7 +36,7 @@ public class PingFragment extends Fragment{
             @Override
             public void onClick(View v)
             {
-
+                pingResultText.setText("");
                 PingTask ping = new PingTask(pingEditText.getText().toString(), pingResultText, getActivity().getApplicationContext());
                 ping.execute();
 

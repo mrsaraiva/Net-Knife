@@ -25,16 +25,16 @@ public class PingTask extends AsyncTask<String, String, Void>
     private TextView resultText;
     private ProgressDialog progress;
 
-    public PingTask(String ip, View view, Context context)
+    public PingTask(String host, View view, Context context)
     {
-        hostAdress = ip;
+        hostAdress = host;
         resultText = (TextView) view;
         progress   = new ProgressDialog(context);
     }
 
     @Override
     protected Void doInBackground(String... params) {
-        String pingCommand = "ping -c 5";
+        String pingCommand = "su -c /data/data/matrix.the.net_knife/busybox ping -c 5";
         String hostName = hostAdress;
         String cmd = pingCommand + " " + hostName;
 
@@ -55,6 +55,7 @@ public class PingTask extends AsyncTask<String, String, Void>
                 byte[] buf = new byte[len];
                 p.getErrorStream().read(buf);
                 System.out.println("Command error:\t\"" + new String(buf) + "\"");
+                publishProgress(new String(buf));
             }
 
             InputStream input = p.getInputStream();
@@ -62,7 +63,8 @@ public class PingTask extends AsyncTask<String, String, Void>
             BufferedReader in = new BufferedReader(new InputStreamReader(input));
 
             StringBuffer buffer = new StringBuffer();
-            String line = "";
+            String line = "aaa";
+            publishProgress(line);
             while ((line = in.readLine()) != null) {
                 buffer.append(line);
                 buffer.append("\n");
