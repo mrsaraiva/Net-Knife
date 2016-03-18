@@ -43,10 +43,10 @@ public class PingFragment extends Fragment{
             @Override
             public void onClick(View v)
             {
-                String pingCommand = "ping -c 5";
+                String pingCommand = "su -c /data/data/matrix.the.net_knife/busybox ping -c 5";
                 String hostName = pingEditText.getText().toString();
                 String cmd = pingCommand + " " + hostName;
-                pingResultText.setText("Testando o botão antes do ping...");
+                pingResultText.setText("");
 
                 try
                 {
@@ -71,13 +71,15 @@ public class PingFragment extends Fragment{
                     System.out.println(in.readLine());
                     while ((line = in.readLine()) != null)
                     {
-                        System.out.println(in.readLine());
-                        buffer.append(line);
-                        buffer.append("\n");
+                        //System.out.println(in.readLine());
+                        //buffer.append(line);
+                        //buffer.append("\n");
+                        pingResultText.append(line);
+                        pingResultText.append("\n");
                     }
 
-                    String bufferStr = buffer.toString();
-                    pingResultText.setText(bufferStr);
+                    //String bufferStr = buffer.toString();
+                    //pingResultText.setText(bufferStr);
 
                 } catch (Exception e) {
                     e.printStackTrace();
