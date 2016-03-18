@@ -47,6 +47,7 @@ public class PingTask extends AsyncTask<String, String, Void>
 //            progress.setMessage("Atingindo alvos...");
 //            progress.show();
 
+
             int len;
             if ((len = p.getErrorStream().available()) > 0)
             {
