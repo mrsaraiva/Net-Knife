@@ -1,5 +1,6 @@
 package matrix.the.net_knife.fragments;
 
+import android.graphics.Typeface;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ public class TracerouteFragment extends Fragment {
     EditText traceEditText;
     TextView traceResultText;
     View view;
+    Typeface font;
 
     public TracerouteFragment() {
     }
@@ -31,7 +33,9 @@ public class TracerouteFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_traceroute, container, false);
+        font = Typeface.createFromAsset(getActivity().getAssets(), "fontawesome-webfont.ttf");
         traceButton = (Button) view.findViewById(R.id.traceButton);
+        traceButton.setTypeface(font);
         traceEditText = (EditText)view.findViewById(R.id.traceEditText);
         traceResultText = (TextView)view.findViewById(R.id.traceResultText);
         traceButton.setOnClickListener(new View.OnClickListener() {
