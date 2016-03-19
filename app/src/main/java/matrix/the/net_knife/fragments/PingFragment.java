@@ -1,4 +1,4 @@
-package matrix.the.net_knife;
+package matrix.the.net_knife.fragments;
 
 import android.graphics.Typeface;
 import android.support.v4.app.Fragment;
@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import matrix.the.net_knife.R;
 import matrix.the.net_knife.utils.PingTask;
 
 /**

@@ -1,4 +1,4 @@
-package matrix.the.net_knife;
+package matrix.the.net_knife.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -7,12 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-public class WifiScanner extends AppCompatActivity {
+import matrix.the.net_knife.R;
+
+public class Ping extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wifi_scanner);
+        setContentView(R.layout.activity_ping);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

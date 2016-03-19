@@ -1,4 +1,4 @@
-package matrix.the.net_knife;
+package matrix.the.net_knife.fragments;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import matrix.the.net_knife.R;
 import matrix.the.net_knife.utils.DNSLookupTask;
 
 /**
