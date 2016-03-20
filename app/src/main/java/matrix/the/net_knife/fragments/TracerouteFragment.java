@@ -32,7 +32,7 @@ public class TracerouteFragment extends Fragment implements OnClickListener, Pro
     private TextView consoleTextView;
     private Typeface font;
     private View view;
-    private int i = 0;
+    private int i;
     private String textBuffer = "";
 
     public TracerouteFragment()
@@ -44,7 +44,6 @@ public class TracerouteFragment extends Fragment implements OnClickListener, Pro
         public void run()
         {
             consoleTextView.setText(textBuffer);
-            i++;
         }
     };
 
@@ -67,7 +66,7 @@ public class TracerouteFragment extends Fragment implements OnClickListener, Pro
         actionButton = (Button) view.findViewById(R.id.traceButton);
         actionButton.setOnClickListener(this);
         actionButton.setTypeface(font);
-        actionButton.setTextSize(11);
+        actionButton.setTextSize(12);
 
         inputEditText = (EditText) view.findViewById(R.id.traceEditText);
         consoleTextView = (TextView) view.findViewById(R.id.traceResultText);
@@ -94,6 +93,7 @@ public class TracerouteFragment extends Fragment implements OnClickListener, Pro
 
         consoleTextView.setText("");
         textBuffer = "";
+        i = 0;
 
         if ((mItem.worker != null && !mItem.worker.checkArgs(args)) || (mItem.tworker != null && !mItem.tworker.checkArgs(args)))
         {
@@ -111,10 +111,20 @@ public class TracerouteFragment extends Fragment implements OnClickListener, Pro
     public void onLineRead(String line)
     {
         sline = line;
-        if (sline != "\n")
+
+        if (sline.contains("bad address"))
         {
-            textBuffer += sline + "\n";
+            textBuffer = "Unknown host '" + inputEditText.getText() + "'";
         }
+        else
+        {
+            if (sline != "\n" && sline != null && !textBuffer.contains("Unknown host"))
+            {
+                textBuffer += sline + "\n";
+            }
+        }
+
+        i++;
 
         mHandler.post(mUpdateResults);
         System.out.println(sline);

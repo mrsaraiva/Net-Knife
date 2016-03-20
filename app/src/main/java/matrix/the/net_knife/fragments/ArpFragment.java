@@ -109,7 +109,8 @@ public class ArpFragment extends Fragment implements OnClickListener, ProcessStr
     public void onLineRead(String line)
     {
         sline = line;
-        if (sline != "\n")
+
+        if (sline != "\n" && sline != null)
         {
             textBuffer += sline + "\n";
         }

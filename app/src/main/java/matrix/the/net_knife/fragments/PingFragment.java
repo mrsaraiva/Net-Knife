@@ -32,7 +32,7 @@ public class PingFragment extends Fragment implements OnClickListener, ProcessSt
     private TextView consoleTextView;
     private Typeface font;
     private View view;
-    private int i = 0;
+    private int i;
     private String textBuffer = "";
 
     public PingFragment()
@@ -94,6 +94,7 @@ public class PingFragment extends Fragment implements OnClickListener, ProcessSt
 
         consoleTextView.setText("");
         textBuffer = "";
+        i = 0;
 
         if ((mItem.worker != null && !mItem.worker.checkArgs(args)) || (mItem.tworker != null && !mItem.tworker.checkArgs(args)))
         {
@@ -112,10 +113,20 @@ public class PingFragment extends Fragment implements OnClickListener, ProcessSt
     public void onLineRead(String line)
     {
         sline = line;
-        if (sline != "\n")
+
+        if (sline.contains("bad address"))
         {
-            textBuffer += sline + "\n";
+            textBuffer = "Unknown host '" + inputEditText.getText() + "'";
         }
+        else
+        {
+            if (sline != "\n" && sline != null && !textBuffer.contains("Unknown host"))
+            {
+                textBuffer += sline + "\n";
+            }
+        }
+
+        i++;
 
         mHandler.post(mUpdateResults);
         System.out.println(sline);

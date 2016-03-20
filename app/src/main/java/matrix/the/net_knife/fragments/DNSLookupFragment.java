@@ -32,7 +32,7 @@ public class DNSLookupFragment extends Fragment implements OnClickListener, Proc
     private TextView consoleTextView;
     private Typeface font;
     private View view;
-    private int i = 0;
+    private int i;
     private String textBuffer = "";
 
     public DNSLookupFragment()
@@ -94,6 +94,7 @@ public class DNSLookupFragment extends Fragment implements OnClickListener, Proc
 
         consoleTextView.setText("");
         textBuffer = "";
+        i = 0;
 
         if ((mItem.worker != null && !mItem.worker.checkArgs(args)) || (mItem.tworker != null && !mItem.tworker.checkArgs(args)))
         {
@@ -112,10 +113,13 @@ public class DNSLookupFragment extends Fragment implements OnClickListener, Proc
     public void onLineRead(String line)
     {
         sline = line;
-        if (sline != "\n")
+
+        if (sline != "\n" && sline != null)
         {
             textBuffer += sline + "\n";
         }
+
+        i++;
 
         mHandler.post(mUpdateResults);
         System.out.println(sline);

@@ -2,6 +2,9 @@ package matrix.the.net_knife.utils;
 
 import android.os.Handler;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.SequenceInputStream;
 
 import matrix.the.net_knife.utils.ProcessStream.ProcessStreamReader;
 
@@ -140,22 +143,16 @@ public abstract class ShellProcess implements Runnable
 
         try
         {
-            proc = Runtime.getRuntime().exec(cmd);
             System.out.println(cmd);
+            proc = Runtime.getRuntime().exec(cmd);
 
-            int len;
-            if ((len = proc.getErrorStream().available()) > 0)
-            {
-                System.out.println(proc.exitValue());
-                byte[] buf = new byte[len];
-                proc.getErrorStream().read(buf);
-                System.out.println("Command error:\t\"" + new String(buf) + "\"");
-            }
+            SequenceInputStream combinedInputStream = new SequenceInputStream(proc.getInputStream(), proc.getErrorStream());
 
-            // Process stdout stream
-            out = new ProcessStream(proc.getInputStream(), reader);
+            out = new ProcessStream(combinedInputStream, reader);
             out.start();
             out.join();
+
+
         } catch (IOException ie)
         {
             mResults = "Sorry, " + cmd.split(" ")[0]

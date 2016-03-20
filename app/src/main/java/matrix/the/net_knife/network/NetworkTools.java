@@ -45,11 +45,11 @@ public class NetworkTools
     {
         // Local device status utilities
         addItem(new NetworkTool("1", "Ping", new Ping()));
-        addItem(new NetworkTool("2", "Traceroute", new Traceroute()));
+        addItem(new NetworkTool("2", "Trace", new Traceroute()));
         addItem(new NetworkTool("3", "Arp", new Arp()));
         addItem(new NetworkTool("4", "DNS Lookup", new DNSLookup()));
         addItem(new NetworkTool("5", "Whois", new Whois()));
-        addItem(new NetworkTool("6", "Port Scanner", new PortScan()));
+        addItem(new NetworkTool("6", "Port Scan", new PortScan()));
         //addItem(new NetworkTool("7", "Wi-Fi Scanner", new WifiScan()));
         //addItem(new NetworkTool("8", "Host Monitor", new HostMonitor()));
         //addItem(new NetworkTool("9", "Netstat", new NetStat()));
@@ -80,7 +80,15 @@ public class NetworkTools
     {
         // Check if arg is a valid IPv4 address
         return arg.length() > 0
-                && arg.matches("\\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.|$)){4}\\b");
+                && arg.matches("^[0-9]+$");
+    }
+
+    public static boolean isValidPort(String arg)
+    {
+        int port = Integer.parseInt(arg);
+
+        return arg.length() > 0
+                && (port > 0) && (port < 65536);
     }
 
     /**

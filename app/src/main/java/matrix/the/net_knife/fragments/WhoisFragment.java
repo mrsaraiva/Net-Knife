@@ -119,7 +119,8 @@ public class WhoisFragment extends Fragment implements OnClickListener, ProcessS
     public void onLineRead(String line)
     {
         sline = line;
-        if (sline != "\n")
+
+        if (sline != "\n" && sline != null)
         {
             textBuffer += sline + "\n";
         }
