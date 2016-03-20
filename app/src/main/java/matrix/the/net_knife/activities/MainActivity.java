@@ -15,9 +15,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import matrix.the.net_knife.R;
+import matrix.the.net_knife.network.NetworkTools;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +29,11 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
@@ -44,29 +48,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        try
-        {
-            Process su = Runtime.getRuntime().exec("su");
-            System.out.println("Creating Busybox symlink...");
-            Process p = Runtime.getRuntime().exec("ln -s /data/data/matrix.the.net_knife/lib/libbusybox.so /data/data/matrix.the.net_knife/busybox");
-            p.waitFor();
-            int len;
-            if ((len = p.getErrorStream().available()) > 0)
-            {
-                System.out.println(p.exitValue());
-                byte[] buf = new byte[len];
-                p.getErrorStream().read(buf);
-                System.out.println("Couldn't create Busybox symlink :(");
-                System.out.println("Command error:\t\"" + new String(buf) + "\"");
-            }
-
-                System.out.println("Busybox symlink created!");
-        }
-        catch (Exception e)
-        {
-            // stub
-            e.printStackTrace();
-        }
+        NetworkTools.createSymlinks();
     }
 
     @Override
@@ -106,40 +88,50 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        String ARG_ITEM_ID = null;
+        Intent intent = null;
 
         switch (id)
         {
             case R.id.nav_ping:
-                Intent pingIntent = new Intent(MainActivity.this, Ping.class);
-                MainActivity.this.startActivity(pingIntent);
+                intent = new Intent(MainActivity.this, Ping.class);
+                intent.putExtra("ARG_ITEM_ID", "1");
+                MainActivity.this.startActivity(intent);
                 break;
             case R.id.nav_traceroute:
-                Intent traceIntent = new Intent(MainActivity.this, Traceroute.class);
-                MainActivity.this.startActivity(traceIntent);
+                intent = new Intent(MainActivity.this, Traceroute.class);
+                intent.putExtra("ARG_ITEM_ID", "2");
+                MainActivity.this.startActivity(intent);
                 break;
             case R.id.nav_arp:
-                Intent arpIntent = new Intent(MainActivity.this, Arp.class);
-                MainActivity.this.startActivity(arpIntent);
+                intent = new Intent(MainActivity.this, Arp.class);
+                intent.putExtra("ARG_ITEM_ID", "3");
+                MainActivity.this.startActivity(intent);
                 break;
             case R.id.nav_dnslookup:
-                Intent dnsIntent = new Intent(MainActivity.this, DNSLookup.class);
-                MainActivity.this.startActivity(dnsIntent);
+                intent = new Intent(MainActivity.this, DNSLookup.class);
+                intent.putExtra("ARG_ITEM_ID", "4");
+                MainActivity.this.startActivity(intent);
                 break;
             case R.id.nav_whois:
-                Intent whoisIntent = new Intent(MainActivity.this, Whois.class);
-                MainActivity.this.startActivity(whoisIntent);
+                intent = new Intent(MainActivity.this, Whois.class);
+                intent.putExtra("ARG_ITEM_ID", "5");
+                MainActivity.this.startActivity(intent);
                 break;
             case R.id.nav_portscanner:
-                Intent portScannerIntent = new Intent(MainActivity.this, PortScanner.class);
-                MainActivity.this.startActivity(portScannerIntent);
+                intent = new Intent(MainActivity.this, PortScanner.class);
+                intent.putExtra("ARG_ITEM_ID", "6");
+                MainActivity.this.startActivity(intent);
                 break;
             case R.id.nav_wifiscanner:
-                Intent wifiScannerIntent = new Intent(MainActivity.this, WifiScanner.class);
-                MainActivity.this.startActivity(wifiScannerIntent);
+                intent = new Intent(MainActivity.this, WifiScanner.class);
+                intent.putExtra("ARG_ITEM_ID", "6");
+                MainActivity.this.startActivity(intent);
                 break;
             case R.id.nav_hostmonitor:
-                Intent hostMonitorIntent = new Intent(MainActivity.this, HostMonitor.class);
-                MainActivity.this.startActivity(hostMonitorIntent);
+                intent = new Intent(MainActivity.this, HostMonitor.class);
+                intent.putExtra("ARG_ITEM_ID", "6");
+                MainActivity.this.startActivity(intent);
                 break;
         }
 

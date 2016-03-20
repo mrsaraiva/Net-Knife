@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:textColor="#f3f6f9"
-        android:text="@string/fa_play"
+        android:text="@string/fa_dot_circle_o"
         android:background="@drawable/estilo_botao"
         android:id="@+id/pingButton"
         android:layout_marginLeft="10dp"

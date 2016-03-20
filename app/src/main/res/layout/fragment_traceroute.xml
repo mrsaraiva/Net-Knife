@@ -32,10 +32,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="#FFFFFF"
-            android:text="@string/fa_play"
-            android:layout_marginLeft="10dp"
+            android:text="@string/fa_dot_circle_o"
             android:background="@drawable/estilo_botao"
             android:id="@+id/traceButton"
+            android:layout_marginLeft="10dp"
             android:layout_alignTop="@+id/traceEditText"
             android:layout_toRightOf="@+id/traceEditText"
             />

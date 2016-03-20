@@ -32,8 +32,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Lookup"
+            android:textColor="#f3f6f9"
+            android:text="@string/fa_dot_circle_o"
+            android:background="@drawable/estilo_botao"
             android:id="@+id/dnsButton"
+            android:layout_marginLeft="10dp"
             android:layout_alignTop="@+id/dnsEditText"
             android:layout_toRightOf="@+id/dnsEditText"
             />

@@ -1,85 +1,129 @@
 package matrix.the.net_knife.fragments;
 
 import android.graphics.Typeface;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View.OnClickListener;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
 import matrix.the.net_knife.R;
+import matrix.the.net_knife.network.NetworkTools;
+import matrix.the.net_knife.utils.ProcessStream.ProcessStreamReader;
+import matrix.the.net_knife.utils.ShellProcess.OnComplete;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class TracerouteFragment extends Fragment {
+public class TracerouteFragment extends Fragment implements OnClickListener, ProcessStreamReader, OnComplete
+{
 
-    Button traceButton;
-    EditText traceEditText;
-    TextView traceResultText;
-    View view;
-    Typeface font;
+    private String ARG_ITEM_ID = "";
+    private NetworkTools.NetworkTool mItem;
+    private final Handler mHandler = new Handler();
+    private static String sline = "";
+    private Button actionButton;
+    private EditText inputEditText;
+    private TextView consoleTextView;
+    private Typeface font;
+    private View view;
+    private int i = 0;
+    private String textBuffer = "";
 
-    public TracerouteFragment() {
+    public TracerouteFragment()
+    {
+    }
+
+    final Runnable mUpdateResults = new Runnable()
+    {
+        public void run()
+        {
+            consoleTextView.setText(textBuffer);
+            i++;
+        }
+    };
+
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+
+        ARG_ITEM_ID = getActivity().getIntent().getStringExtra("ARG_ITEM_ID");
+
+        mItem = NetworkTools.ITEM_MAP.get(ARG_ITEM_ID);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         view = inflater.inflate(R.layout.fragment_traceroute, container, false);
+
         font = Typeface.createFromAsset(getActivity().getAssets(), "fontawesome-webfont.ttf");
-        traceButton = (Button) view.findViewById(R.id.traceButton);
-        traceButton.setTypeface(font);
-        traceEditText = (EditText)view.findViewById(R.id.traceEditText);
-        traceResultText = (TextView)view.findViewById(R.id.traceResultText);
-        traceButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                String traceCommand = "su -c /data/data/matrix.the.net_knife/busybox traceroute -w 1 -n -m 20";
-                String hostName = traceEditText.getText().toString();
-                String cmd = traceCommand + " " + hostName;
-                traceResultText.setText("");
+        actionButton = (Button) view.findViewById(R.id.traceButton);
+        actionButton.setOnClickListener(this);
+        actionButton.setTypeface(font);
+        actionButton.setTextSize(11);
 
-                try
-                {
-                    System.out.println(cmd);
-                    Process p = Runtime.getRuntime().exec(cmd);
-                    p.waitFor();
+        inputEditText = (EditText) view.findViewById(R.id.traceEditText);
+        consoleTextView = (TextView) view.findViewById(R.id.traceResultText);
+        consoleTextView.setText("Input a valid hostname or IPv4 address and press the button to Traceroute");
 
-                    int len;
-                    if ((len = p.getErrorStream().available()) > 0)
-                    {
-                        System.out.println(p.exitValue());
-                        byte[] buf = new byte[len];
-                        p.getErrorStream().read(buf);
-                        System.out.println("Command error:\t\"" + new String(buf) + "\"");
-                    }
+        if (mItem != null)
+        {
+            actionButton.setText(mItem.content);
+        }
+        else
+        {
+            actionButton.setText("Start");
+        }
 
-                    InputStream input = p.getInputStream();
-                    System.out.println(input.read());
-                    BufferedReader in = new BufferedReader(new InputStreamReader(input));
-                    StringBuffer buffer = new StringBuffer();
-                    String line = "";
-                    System.out.println(in.readLine());
-                    while ((line = in.readLine()) != null)
-                    {
-                        traceResultText.append(line);
-                        traceResultText.append("\n");
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            }
-        });
         return view;
+    }
+
+    @Override
+    public void onClick(View arg0)
+    {
+        String[] args = new String[2];
+        args[0] = "-w 1 -n -m 20";
+        args[1] = inputEditText.getText().toString();
+
+        consoleTextView.setText("");
+        textBuffer = "";
+
+        if ((mItem.worker != null && !mItem.worker.checkArgs(args)) || (mItem.tworker != null && !mItem.tworker.checkArgs(args)))
+        {
+            consoleTextView.setText("Please enter a hostname (google.com) or IPv4 address (8.8.8.8)");
+        }
+        else
+        {
+            actionButton.setEnabled(false);
+
+            mItem.start(args, this, this);
+        }
+    }
+
+    @Override
+    public void onLineRead(String line)
+    {
+        sline = line;
+        if (sline != "\n")
+        {
+            textBuffer += sline + "\n";
+        }
+
+        mHandler.post(mUpdateResults);
+        System.out.println(sline);
+    }
+
+    @Override
+    public void onComplete(String results)
+    {
+        consoleTextView.append("\n" + results);
+        actionButton.setEnabled(true);
     }
 }
