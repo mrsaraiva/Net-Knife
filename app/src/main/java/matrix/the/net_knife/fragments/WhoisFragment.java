@@ -77,7 +77,7 @@ public class WhoisFragment extends Fragment implements OnClickListener, ProcessS
 
 
         consoleTextView = (TextView) view.findViewById(R.id.whoisResultText);
-        consoleTextView.setText("Input a valid hostname or IPv4 address, select a server and press the button to query the Whois server");
+        consoleTextView.setText("Input a valid hostname or IPv4 address, select a server and press the button to query the Whois database");
 
         if (mItem != null)
         {

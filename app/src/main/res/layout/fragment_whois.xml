@@ -44,31 +44,39 @@
 
     </LinearLayout>
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:weightSum="5"
-    android:id="@+id/linearLayout2"
-    android:layout_below="@+id/linearLayout"
-    android:layout_marginTop="5dp">
-
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_weight="4"
-        android:id="@+id/spinnerWhoisServers"
-        android:entries="@array/whois_server_list"
-    />
-
-</LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text=""
-        android:id="@+id/whoisResultText"
-        android:layout_below="@+id/linearLayout2"
-    />
+        android:weightSum="5"
+        android:id="@+id/linearLayout2"
+        android:layout_below="@+id/linearLayout"
+        android:layout_marginTop="5dp">
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:id="@+id/spinnerWhoisServers"
+            android:entries="@array/whois_server_list"
+        />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:visibility="visible"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:keepScreenOn="true"
+        android:scrollbarStyle="insideInset"
+        android:id="@+id/scrollView1"
+        android:scrollbars="vertical"
+        android:layout_below="@+id/linearLayout2">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:id="@+id/whoisResultText"
+        />
+    </ScrollView>
 
 </RelativeLayout>
