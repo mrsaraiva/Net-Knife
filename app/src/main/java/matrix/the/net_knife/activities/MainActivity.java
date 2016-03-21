@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import matrix.the.net_knife.R;
 import matrix.the.net_knife.network.NetworkTools;
 import matrix.the.net_knife.utils.ContextBean;
+import matrix.the.net_knife.utils.SystemProperties;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity
 
         ContextBean.setLocalContext(getApplicationContext());
 
-        System.out.println("Phone CPU architecture is: " + System.getProperty("ro.product.cpu.abi"));
+        System.out.println("Phone CPU architecture is: " + SystemProperties.get("ro.product.cpu.abilist"));
 
         NetworkTools.createSymlinks();
     }

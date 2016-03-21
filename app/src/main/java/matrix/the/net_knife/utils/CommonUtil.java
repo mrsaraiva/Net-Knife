@@ -3,6 +3,8 @@ package matrix.the.net_knife.utils;
 import android.os.Environment;
 import android.util.Log;
 
+import java.lang.reflect.Method;
+
 /**
  * Created by Marcos Saraiva on 20/03/2016.
  */
@@ -30,7 +32,7 @@ public class CommonUtil
 
     public static String getBusyboxBin()
     {
-        String arch = System.getProperty("ro.product.cpu.abi");
+        String arch = SystemProperties.get("ro.product.cpu.abilist");
 
         if (arch.contains("arm") || arch.contains("arch64"))
         {
