@@ -1,11 +1,14 @@
 package matrix.the.net_knife.network;
 
+import android.content.Context;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import matrix.the.net_knife.utils.CommonUtil;
 import matrix.the.net_knife.utils.ProcessStream.ProcessStreamReader;
 import matrix.the.net_knife.utils.ShellProcess;
 import matrix.the.net_knife.utils.ShellProcess.OnComplete;
@@ -16,19 +19,19 @@ import matrix.the.net_knife.utils.ThreadProcess;
  */
 public class NetworkTools
 {
-    public static final String appDir = "/data/data/matrix.the.net_knife";
+    public static final String appDir = CommonUtil.getDataDir();
     public static final String busyBoxBin = appDir + "/lib/libbusybox.so";
     public static final String busyBoxSymlink = appDir + "/busybox";
     public static Map<String, String> networkToolBin = new HashMap<String, String>();
 
     static
     {
-        networkToolBin.put("arp", "/data/data/matrix.the.net_knife/arp");
-        networkToolBin.put("nslookup", "/data/data/matrix.the.net_knife/nslookup");
-        networkToolBin.put("ping", "/data/data/matrix.the.net_knife/ping");
-        networkToolBin.put("pscan", "/data/data/matrix.the.net_knife/pscan");
-        networkToolBin.put("traceroute", "/data/data/matrix.the.net_knife/traceroute");
-        networkToolBin.put("whois", "/data/data/matrix.the.net_knife/whois");
+        networkToolBin.put("arp", appDir + "/arp");
+        networkToolBin.put("nslookup", appDir + "/nslookup");
+        networkToolBin.put("ping", appDir + "/ping");
+        networkToolBin.put("pscan", appDir + "/pscan");
+        networkToolBin.put("traceroute", appDir + "/traceroute");
+        networkToolBin.put("whois", appDir + "/whois");
     }
 
     /**
@@ -115,7 +118,7 @@ public class NetworkTools
             }
             else
             {
-                Process p = Runtime.getRuntime().exec("ln -s " + busyBoxBin + networkToolBin.get("busybox"));
+                Process p = Runtime.getRuntime().exec("ln -s " + busyBoxBin + " " + busyBoxSymlink);
                 p.waitFor();
                 int len;
                 if ((len = p.getErrorStream().available()) > 0)
