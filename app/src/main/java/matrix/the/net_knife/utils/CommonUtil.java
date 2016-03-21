@@ -30,7 +30,7 @@ public class CommonUtil
 
     public static String getBusyboxBin()
     {
-        String arch = System.getProperty("os.arch");
+        String arch = System.getProperty("ro.product.cpu.abi");
 
         if (arch.contains("arm") || arch.contains("arch64"))
         {

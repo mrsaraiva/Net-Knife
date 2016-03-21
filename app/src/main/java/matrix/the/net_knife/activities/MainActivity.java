@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity
 
         ContextBean.setLocalContext(getApplicationContext());
 
-        System.out.println("Phone CPU architecture is: " + System.getProperty("os.arch"));
+        System.out.println("Phone CPU architecture is: " + System.getProperty("ro.product.cpu.abi"));
 
         NetworkTools.createSymlinks();
     }
