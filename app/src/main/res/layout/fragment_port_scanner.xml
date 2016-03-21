@@ -41,13 +41,13 @@
         android:id="@+id/linearLayout2">
 
         <EditText
-            android:id="@+id/pscanMinPort"
+            android:id="@+id/pscanStartPortEditText"
             android:layout_weight="1"
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:ellipsize="start"
             android:gravity="center"
-            android:hint="Min Port"
+            android:hint="Start Port"
             android:inputType="text"
             android:background="@drawable/style_edittext"
             android:layout_alignParentTop="true"
@@ -58,14 +58,14 @@
         />
 
         <EditText
-            android:id="@+id/pscanMaxPort"
+            android:id="@+id/pscanEndPortEditText"
             android:layout_weight="1"
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:ellipsize="start"
             android:gravity="center"
-            android:hint="Max Port"
+            android:hint="End Port"
             android:inputType="text"
             android:background="@drawable/style_edittext"
             android:layout_alignParentTop="true"

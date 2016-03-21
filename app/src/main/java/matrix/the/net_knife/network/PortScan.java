@@ -10,8 +10,17 @@ public class PortScan extends ShellProcess
 
     public boolean checkArgs(String[] args)
     {
-        // Make sure the first argument is a valid host name or IPv4 address
-        return NetworkTools.isHostName(args[0]) || NetworkTools.isIPv4Adress(args[0]);
+        String startPort = args[0].substring(3);
+        String endPort = args[1].substring(3);
+        String host = args[2];
+
+        // Make sure the last argument is a valid host name or IPv4 address
+        return
+        (
+                (NetworkTools.isValidPort(startPort)) &&
+                (NetworkTools.isValidPort(endPort)) &&
+                (NetworkTools.isHostName(host) || NetworkTools.isIPv4Adress(host))
+        );
     }
 
     protected String getSystemCommand()

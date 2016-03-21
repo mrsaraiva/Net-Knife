@@ -86,6 +86,7 @@ public class NetworkTools
 
     public static boolean isValidPort(String arg)
     {
+        System.out.println("Port number is: " + arg);
         int port = Integer.parseInt(arg);
 
         return arg.length() > 0
