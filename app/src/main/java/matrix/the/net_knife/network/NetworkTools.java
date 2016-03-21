@@ -18,7 +18,7 @@ import matrix.the.net_knife.utils.ThreadProcess;
 public class NetworkTools
 {
     public static final String appDir = CommonUtil.getDataDir();
-    public static final String busyBoxBin = appDir + "/" + CommonUtil.getBusyboxBin();
+    public static final String busyBoxBin = appDir + "/lib/" + CommonUtil.getBusyboxBin();
     public static final String busyBoxSymlink = appDir + "/busybox";
     public static Map<String, String> networkToolBin = new HashMap<String, String>();
 
