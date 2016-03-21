@@ -1,7 +1,5 @@
 package matrix.the.net_knife.network;
 
-import android.content.Context;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +18,7 @@ import matrix.the.net_knife.utils.ThreadProcess;
 public class NetworkTools
 {
     public static final String appDir = CommonUtil.getDataDir();
-    public static final String busyBoxBin = appDir + "/lib/libbusybox.so";
+    public static final String busyBoxBin = appDir + CommonUtil.getBusyboxBin();
     public static final String busyBoxSymlink = appDir + "/busybox";
     public static Map<String, String> networkToolBin = new HashMap<String, String>();
 

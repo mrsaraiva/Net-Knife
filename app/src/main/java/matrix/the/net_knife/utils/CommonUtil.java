@@ -27,4 +27,20 @@ public class CommonUtil
         return ContextBean.getLocalContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
                 .toString();
     }
+
+    public static String getBusyboxBin()
+    {
+        String arch = System.getProperty("os.arch");
+
+        if (arch.contains("arm") || arch.contains("arch64"))
+        {
+            return "libbusybox_arm.so";
+        }
+        else if (arch.contains("i686") || arch.contains("x86"))
+        {
+            return "libbusybox_intel.so";
+        }
+
+        return "libbusybox_arm.so";
+    }
 }
