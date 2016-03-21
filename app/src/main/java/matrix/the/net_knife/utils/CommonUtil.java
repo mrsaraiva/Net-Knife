@@ -1,15 +1,22 @@
 package matrix.the.net_knife.utils;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
-
-import java.lang.reflect.Method;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 /**
  * Created by Marcos Saraiva on 20/03/2016.
  */
 public class CommonUtil
 {
+    public static void hideKeyboardFrom(Context context, View view) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
     public static String getDataDir()
     {
         try

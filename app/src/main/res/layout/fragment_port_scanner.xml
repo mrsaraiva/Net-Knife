@@ -25,6 +25,10 @@
             android:inputType="text"
             android:background="@drawable/style_edittext"
             android:layout_alignParentTop="true"
+            android:singleLine="true"
+            android:imeActionId="5"
+            android:imeActionLabel="SCAN"
+            android:imeOptions="actionDone"
         />
 
     </LinearLayout>
@@ -47,6 +51,10 @@
             android:inputType="text"
             android:background="@drawable/style_edittext"
             android:layout_alignParentTop="true"
+            android:singleLine="true"
+            android:imeActionId="5"
+            android:imeActionLabel="SCAN"
+            android:imeOptions="actionDone"
         />
 
         <EditText
@@ -61,6 +69,10 @@
             android:inputType="text"
             android:background="@drawable/style_edittext"
             android:layout_alignParentTop="true"
+            android:singleLine="true"
+            android:imeActionId="5"
+            android:imeActionLabel="SCAN"
+            android:imeOptions="actionDone"
         />
 
         <Button
@@ -70,7 +82,7 @@
             android:layout_weight="1"
             android:textColor="#f3f6f9"
             android:text="@string/fa_dot_circle_o"
-            android:background="@drawable/estilo_botao"
+            android:background="@drawable/style_button"
             android:id="@+id/pscanButton"
             android:layout_marginLeft="10dp"
         />
@@ -85,6 +97,7 @@
         android:text=""
         android:id="@+id/pscanResultText"
         android:layout_below="@+id/linearLayout2"
+        android:background="@drawable/style_textview"
     />
 
 </RelativeLayout>

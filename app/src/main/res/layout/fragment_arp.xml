@@ -22,7 +22,7 @@
             android:layout_weight="1"
             android:textColor="#f3f6f9"
             android:text="@string/fa_dot_circle_o"
-            android:background="@drawable/estilo_botao"
+            android:background="@drawable/style_button"
             android:id="@+id/arpButton"
             />
     </LinearLayout>
@@ -34,6 +34,8 @@
         android:id="@+id/arpResultText"
         android:layout_marginTop="75dp"
         android:layout_below="@+id/linearLayout"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:background="@drawable/style_textview"
+    />
 
 </RelativeLayout>

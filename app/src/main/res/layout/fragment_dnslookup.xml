@@ -25,6 +25,10 @@
             android:inputType="text"
             android:background="@drawable/style_edittext"
             android:layout_alignParentTop="true"
+            android:singleLine="true"
+            android:imeActionId="5"
+            android:imeActionLabel="LOOKUP"
+            android:imeOptions="actionDone"
             />
 
         <Button
@@ -34,7 +38,7 @@
             android:layout_weight="1"
             android:textColor="#f3f6f9"
             android:text="@string/fa_dot_circle_o"
-            android:background="@drawable/estilo_botao"
+            android:background="@drawable/style_button"
             android:id="@+id/dnsButton"
             android:layout_marginLeft="10dp"
             android:layout_alignTop="@+id/dnsEditText"
@@ -49,6 +53,7 @@
         android:id="@+id/dnsResultText"
         android:layout_marginTop="75dp"
         android:layout_below="@+id/linearLayout"
+        android:background="@drawable/style_textview"
         android:layout_alignParentStart="true" />
 
 </RelativeLayout>

@@ -4,6 +4,7 @@ import android.graphics.Typeface;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View.OnClickListener;
 import android.view.View;
@@ -16,13 +17,14 @@ import android.widget.TextView;
 
 import matrix.the.net_knife.R;
 import matrix.the.net_knife.network.NetworkTools;
+import matrix.the.net_knife.utils.CommonUtil;
 import matrix.the.net_knife.utils.ProcessStream.ProcessStreamReader;
 import matrix.the.net_knife.utils.ShellProcess.OnComplete;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class WhoisFragment extends Fragment implements OnClickListener, ProcessStreamReader, OnComplete
+public class WhoisFragment extends Fragment implements ProcessStreamReader, OnComplete
 {
 
     private String ARG_ITEM_ID = "";
@@ -67,12 +69,36 @@ public class WhoisFragment extends Fragment implements OnClickListener, ProcessS
         view = inflater.inflate(R.layout.fragment_whois, container, false);
 
         font = Typeface.createFromAsset(getActivity().getAssets(), "fontawesome-webfont.ttf");
+
         actionButton = (Button) view.findViewById(R.id.whoisButton);
-        actionButton.setOnClickListener(this);
         actionButton.setTypeface(font);
-        actionButton.setTextSize(11);
+        actionButton.setTextSize(12);
+        actionButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                doAction();
+            }
+        });
 
         inputEditText = (EditText) view.findViewById(R.id.whoisEditText);
+        inputEditText.setOnEditorActionListener(new TextView.OnEditorActionListener()
+        {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
+            {
+                System.out.println("Action ID: " + actionId);
+
+                if (actionId == 5)
+                {
+                    doAction();
+                    return true;
+                }
+                return false;
+            }
+        });
+
         spinnerWhois = (Spinner) view.findViewById(R.id.spinnerWhoisServers);
 
 
@@ -91,8 +117,7 @@ public class WhoisFragment extends Fragment implements OnClickListener, ProcessS
         return view;
     }
 
-    @Override
-    public void onClick(View arg0)
+    public void doAction()
     {
         String whoisServer[] = spinnerWhois.getSelectedItem().toString().split("\\s+");
         String[] args = new String[2];
@@ -108,6 +133,7 @@ public class WhoisFragment extends Fragment implements OnClickListener, ProcessS
         }
         else
         {
+            CommonUtil.hideKeyboardFrom(this.getContext(), view);
             consoleTextView.setText("Querying Whois server about host " + args[0] + ", please wait");
             actionButton.setEnabled(false);
 

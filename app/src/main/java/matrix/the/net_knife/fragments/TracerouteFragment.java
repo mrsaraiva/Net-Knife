@@ -4,8 +4,8 @@ import android.graphics.Typeface;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.View.OnClickListener;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -14,13 +14,14 @@ import android.widget.TextView;
 
 import matrix.the.net_knife.R;
 import matrix.the.net_knife.network.NetworkTools;
+import matrix.the.net_knife.utils.CommonUtil;
 import matrix.the.net_knife.utils.ProcessStream.ProcessStreamReader;
 import matrix.the.net_knife.utils.ShellProcess.OnComplete;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class TracerouteFragment extends Fragment implements OnClickListener, ProcessStreamReader, OnComplete
+public class TracerouteFragment extends Fragment implements ProcessStreamReader, OnComplete
 {
 
     private String ARG_ITEM_ID = "";
@@ -63,12 +64,37 @@ public class TracerouteFragment extends Fragment implements OnClickListener, Pro
         view = inflater.inflate(R.layout.fragment_traceroute, container, false);
 
         font = Typeface.createFromAsset(getActivity().getAssets(), "fontawesome-webfont.ttf");
+
         actionButton = (Button) view.findViewById(R.id.traceButton);
-        actionButton.setOnClickListener(this);
         actionButton.setTypeface(font);
         actionButton.setTextSize(12);
+        actionButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                doAction();
+            }
+        });
 
         inputEditText = (EditText) view.findViewById(R.id.traceEditText);
+        inputEditText.setOnEditorActionListener(new TextView.OnEditorActionListener()
+        {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
+            {
+                System.out.println("Action ID: " + actionId);
+
+                if (actionId == 5)
+                {
+                    doAction();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+
         consoleTextView = (TextView) view.findViewById(R.id.traceResultText);
         consoleTextView.setText("Input a valid hostname or IPv4 address and press the button to Traceroute");
 
@@ -84,8 +110,7 @@ public class TracerouteFragment extends Fragment implements OnClickListener, Pro
         return view;
     }
 
-    @Override
-    public void onClick(View arg0)
+    public void doAction()
     {
         String[] args = new String[2];
         args[0] = "-w 1 -n -m 20";
@@ -101,6 +126,8 @@ public class TracerouteFragment extends Fragment implements OnClickListener, Pro
         }
         else
         {
+            CommonUtil.hideKeyboardFrom(this.getContext(), view);
+            consoleTextView.setText("Tracing route to " + args[0] + ", please wait");
             actionButton.setEnabled(false);
 
             mItem.start(args, this, this);

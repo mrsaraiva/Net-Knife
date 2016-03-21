@@ -24,6 +24,10 @@
             android:inputType="text"
             android:background="@drawable/style_edittext"
             android:layout_alignParentTop="true"
+            android:singleLine="true"
+            android:imeActionId="5"
+            android:imeActionLabel="TRACE"
+            android:imeOptions="actionDone"
             />
 
         <Button
@@ -33,7 +37,7 @@
             android:layout_weight="1"
             android:textColor="#FFFFFF"
             android:text="@string/fa_dot_circle_o"
-            android:background="@drawable/estilo_botao"
+            android:background="@drawable/style_button"
             android:id="@+id/traceButton"
             android:layout_marginLeft="10dp"
             android:layout_alignTop="@+id/traceEditText"

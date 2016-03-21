@@ -4,6 +4,7 @@ import android.graphics.Typeface;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View.OnClickListener;
 import android.view.View;
@@ -14,13 +15,14 @@ import android.widget.TextView;
 
 import matrix.the.net_knife.R;
 import matrix.the.net_knife.network.NetworkTools;
+import matrix.the.net_knife.utils.CommonUtil;
 import matrix.the.net_knife.utils.ProcessStream.ProcessStreamReader;
 import matrix.the.net_knife.utils.ShellProcess.OnComplete;
 
 /**
- * A placeholder fragment containing a simple view.
+ * Ping Fragment
  */
-public class PingFragment extends Fragment implements OnClickListener, ProcessStreamReader, OnComplete
+public class PingFragment extends Fragment implements ProcessStreamReader, OnComplete
 {
 
     private String ARG_ITEM_ID = "";
@@ -64,12 +66,36 @@ public class PingFragment extends Fragment implements OnClickListener, ProcessSt
         view = inflater.inflate(R.layout.fragment_ping, container, false);
 
         font = Typeface.createFromAsset(getActivity().getAssets(), "fontawesome-webfont.ttf");
+
         actionButton = (Button) view.findViewById(R.id.pingButton);
-        actionButton.setOnClickListener(this);
         actionButton.setTypeface(font);
         actionButton.setTextSize(11);
+        actionButton.setOnClickListener(new OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                doAction();
+            }
+        });
 
         inputEditText = (EditText) view.findViewById(R.id.pingEditText);
+        inputEditText.setOnEditorActionListener(new TextView.OnEditorActionListener()
+        {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
+            {
+                System.out.println("Action ID: " + actionId);
+
+                if (actionId == 5)
+                {
+                    doAction();
+                    return true;
+                }
+                return false;
+            }
+        });
+
         consoleTextView = (TextView) view.findViewById(R.id.pingResultText);
         consoleTextView.setText("Input a valid hostname or IPv4 address and press the button to probe the host using ICMP packets");
 
@@ -85,8 +111,7 @@ public class PingFragment extends Fragment implements OnClickListener, ProcessSt
         return view;
     }
 
-    @Override
-    public void onClick(View arg0)
+    private void doAction()
     {
         String[] args = new String[2];
         args[0] = "-c 4";
@@ -102,6 +127,7 @@ public class PingFragment extends Fragment implements OnClickListener, ProcessSt
         }
         else
         {
+            CommonUtil.hideKeyboardFrom(this.getContext(), view);
             consoleTextView.setText("Probing host " + args[1]);
             actionButton.setEnabled(false);
 

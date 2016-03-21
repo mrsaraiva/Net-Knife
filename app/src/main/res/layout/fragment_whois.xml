@@ -26,6 +26,10 @@
             android:inputType="text"
             android:background="@drawable/style_edittext"
             android:layout_alignParentTop="true"
+            android:singleLine="true"
+            android:imeActionId="5"
+            android:imeActionLabel="WHOIS"
+            android:imeOptions="actionDone"
         />
 
         <Button
@@ -35,7 +39,7 @@
             android:layout_weight="1"
             android:textColor="#f3f6f9"
             android:text="@string/fa_dot_circle_o"
-            android:background="@drawable/estilo_botao"
+            android:background="@drawable/style_button"
             android:id="@+id/whoisButton"
             android:layout_marginLeft="10dp"
             android:layout_alignTop="@+id/whoisEditText"
@@ -76,6 +80,7 @@
             android:layout_height="wrap_content"
             android:text=""
             android:id="@+id/whoisResultText"
+            android:background="@drawable/style_textview"
         />
     </ScrollView>
 

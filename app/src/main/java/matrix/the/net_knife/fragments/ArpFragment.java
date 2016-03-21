@@ -5,22 +5,21 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.View.OnClickListener;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import matrix.the.net_knife.R;
 import matrix.the.net_knife.network.NetworkTools;
+import matrix.the.net_knife.utils.CommonUtil;
 import matrix.the.net_knife.utils.ProcessStream.ProcessStreamReader;
 import matrix.the.net_knife.utils.ShellProcess.OnComplete;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class ArpFragment extends Fragment implements OnClickListener, ProcessStreamReader, OnComplete
+public class ArpFragment extends Fragment implements ProcessStreamReader, OnComplete
 {
 
     private String ARG_ITEM_ID = "";
@@ -63,10 +62,18 @@ public class ArpFragment extends Fragment implements OnClickListener, ProcessStr
         view = inflater.inflate(R.layout.fragment_arp, container, false);
 
         font = Typeface.createFromAsset(getActivity().getAssets(), "fontawesome-webfont.ttf");
+
         actionButton = (Button) view.findViewById(R.id.arpButton);
-        actionButton.setOnClickListener(this);
         actionButton.setTypeface(font);
         actionButton.setTextSize(11);
+        actionButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                doAction();
+            }
+        });
 
         consoleTextView = (TextView) view.findViewById(R.id.arpResultText);
         consoleTextView.setText("Press the button to get the ARP table");
@@ -83,8 +90,7 @@ public class ArpFragment extends Fragment implements OnClickListener, ProcessStr
         return view;
     }
 
-    @Override
-    public void onClick(View arg0)
+    public void doAction()
     {
         String[] args = new String[1];
         args[0] = null;
@@ -98,6 +104,7 @@ public class ArpFragment extends Fragment implements OnClickListener, ProcessStr
         }
         else
         {
+            CommonUtil.hideKeyboardFrom(this.getContext(), view);
             consoleTextView.setText("Getting ARP table for the connected interfaces, please wait");
             actionButton.setEnabled(false);
 
