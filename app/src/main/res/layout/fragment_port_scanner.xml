@@ -47,7 +47,7 @@
             android:layout_height="match_parent"
             android:ellipsize="start"
             android:gravity="center"
-            android:hint="Start Port"
+            android:hint="Min Port"
             android:inputType="text"
             android:background="@drawable/style_edittext"
             android:layout_alignParentTop="true"
@@ -65,7 +65,7 @@
             android:layout_marginLeft="10dp"
             android:ellipsize="start"
             android:gravity="center"
-            android:hint="End Port"
+            android:hint="Max Port"
             android:inputType="text"
             android:background="@drawable/style_edittext"
             android:layout_alignParentTop="true"
@@ -90,14 +90,23 @@
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text=""
-        android:id="@+id/pscanResultText"
+    <ScrollView
+        android:visibility="visible"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:keepScreenOn="true"
+        android:scrollbarStyle="insideInset"
+        android:id="@+id/scrollView1"
+        android:scrollbars="vertical"
         android:layout_below="@+id/linearLayout2"
-        android:background="@drawable/style_textview"
-    />
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:id="@+id/pscanResultText"
+            android:background="@drawable/style_textview"
+            />
+    </ScrollView>
 
 </RelativeLayout>
