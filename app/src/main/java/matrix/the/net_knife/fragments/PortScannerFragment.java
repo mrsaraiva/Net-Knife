@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View.OnClickListener;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import android.widget.TextView.OnEditorActionListener;
 import matrix.the.net_knife.R;
 import matrix.the.net_knife.network.NetworkTools;
 import matrix.the.net_knife.utils.CommonUtil;
+import matrix.the.net_knife.utils.CustomEditText;
 import matrix.the.net_knife.utils.ProcessStream.ProcessStreamReader;
 import matrix.the.net_knife.utils.ShellProcess.OnComplete;
 
@@ -31,7 +33,8 @@ public class PortScannerFragment extends Fragment implements ProcessStreamReader
     private final Handler mHandler = new Handler();
     private static String sline = "";
     private Button actionButton;
-    private EditText inputEditText, startPortEditText, endPortEditText;
+    private CustomEditText inputEditText;
+    private EditText startPortEditText, endPortEditText;
     private TextView consoleTextView;
     private Typeface font;
     private View view;
@@ -80,7 +83,10 @@ public class PortScannerFragment extends Fragment implements ProcessStreamReader
             }
         });
 
-        inputEditText = (EditText) view.findViewById(R.id.pscanEditText);
+        inputEditText = (CustomEditText) view.findViewById(R.id.pscanEditText);
+        inputEditText.addTextChangedListener(CommonUtil.editTextChanged());
+        inputEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        inputEditText.setImeActionLabel("SCAN", 5);
         inputEditText.setOnEditorActionListener(new CustomInputTextHandler());
 
         startPortEditText = (EditText) view.findViewById(R.id.pscanStartPortEditText);

@@ -6,18 +6,17 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.View.OnClickListener;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import matrix.the.net_knife.R;
 import matrix.the.net_knife.network.NetworkTools;
 import matrix.the.net_knife.utils.CommonUtil;
+import matrix.the.net_knife.utils.CustomEditText;
 import matrix.the.net_knife.utils.ProcessStream.ProcessStreamReader;
 import matrix.the.net_knife.utils.ShellProcess.OnComplete;
 
@@ -32,7 +31,7 @@ public class WhoisFragment extends Fragment implements ProcessStreamReader, OnCo
     private final Handler mHandler = new Handler();
     private static String sline = "";
     private Button actionButton;
-    private EditText inputEditText;
+    private CustomEditText inputEditText;
     private Spinner spinnerWhois;
     private TextView consoleTextView;
     private Typeface font;
@@ -82,7 +81,10 @@ public class WhoisFragment extends Fragment implements ProcessStreamReader, OnCo
             }
         });
 
-        inputEditText = (EditText) view.findViewById(R.id.whoisEditText);
+        inputEditText = (CustomEditText) view.findViewById(R.id.whoisEditText);
+        inputEditText.addTextChangedListener(CommonUtil.editTextChanged());
+        inputEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        inputEditText.setImeActionLabel("WHOIS", 5);
         inputEditText.setOnEditorActionListener(new TextView.OnEditorActionListener()
         {
             @Override
@@ -103,7 +105,7 @@ public class WhoisFragment extends Fragment implements ProcessStreamReader, OnCo
 
 
         consoleTextView = (TextView) view.findViewById(R.id.whoisResultText);
-        consoleTextView.setText("Input a valid hostname or IPv4 address, select a server and press the button to query the Whois database");
+        consoleTextView.setText("Input a valid hostname or IP address, select a server and press the button to query the Whois database");
 
         if (mItem != null)
         {
@@ -129,7 +131,7 @@ public class WhoisFragment extends Fragment implements ProcessStreamReader, OnCo
 
         if ((mItem.worker != null && !mItem.worker.checkArgs(args)) || (mItem.tworker != null && !mItem.tworker.checkArgs(args)))
         {
-            consoleTextView.setText("Please enter a valid hostname (like google.com) or IPv4 address (like 8.8.8.8)");
+            consoleTextView.setText("Please enter a valid hostname (like google.com) or IP address (like 8.8.8.8)");
         }
         else
         {

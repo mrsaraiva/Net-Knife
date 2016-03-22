@@ -4,18 +4,20 @@ import android.graphics.Typeface;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View.OnClickListener;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import matrix.the.net_knife.R;
 import matrix.the.net_knife.network.NetworkTools;
 import matrix.the.net_knife.utils.CommonUtil;
+import matrix.the.net_knife.utils.CustomEditText;
 import matrix.the.net_knife.utils.ProcessStream.ProcessStreamReader;
 import matrix.the.net_knife.utils.ShellProcess.OnComplete;
 
@@ -30,7 +32,7 @@ public class DNSLookupFragment extends Fragment implements ProcessStreamReader, 
     private final Handler mHandler = new Handler();
     private static String sline = "";
     private Button actionButton;
-    private EditText inputEditText;
+    private CustomEditText inputEditText;
     private TextView consoleTextView;
     private Typeface font;
     private View view;
@@ -79,7 +81,10 @@ public class DNSLookupFragment extends Fragment implements ProcessStreamReader, 
             }
         });
 
-        inputEditText = (EditText) view.findViewById(R.id.dnsEditText);
+        inputEditText = (CustomEditText) view.findViewById(R.id.dnsEditText);
+        inputEditText.addTextChangedListener(CommonUtil.editTextChanged());
+        inputEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        inputEditText.setImeActionLabel("LOOKUP", 5);
         inputEditText.setOnEditorActionListener(new TextView.OnEditorActionListener()
         {
             @Override
@@ -109,6 +114,32 @@ public class DNSLookupFragment extends Fragment implements ProcessStreamReader, 
         }
 
         return view;
+    }
+
+    private CustomEditText.TextChangedListener editTextChanged()
+    {
+        return new CustomEditText.TextChangedListener()
+        {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after)
+            {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+
+            }
+        };
     }
 
     public void doAction()

@@ -3,6 +3,7 @@ package matrix.the.net_knife.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Environment;
+import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -12,9 +13,36 @@ import android.view.inputmethod.InputMethodManager;
  */
 public class CommonUtil
 {
-    public static void hideKeyboardFrom(Context context, View view) {
+    public static void hideKeyboardFrom(Context context, View view)
+    {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    public static CustomEditText.TextChangedListener editTextChanged()
+    {
+        return new CustomEditText.TextChangedListener()
+        {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after)
+            {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+
+            }
+        };
     }
 
     public static String getDataDir()
@@ -23,7 +51,8 @@ public class CommonUtil
         {
             return ContextBean.getLocalContext().getPackageManager().getPackageInfo(
                     ContextBean.getLocalContext().getPackageName(), 0).applicationInfo.dataDir;
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             Log.w("Your Tag", "Data Directory error:", e);
             return null;

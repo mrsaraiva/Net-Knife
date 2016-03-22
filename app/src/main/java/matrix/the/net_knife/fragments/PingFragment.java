@@ -9,13 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View.OnClickListener;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import matrix.the.net_knife.R;
 import matrix.the.net_knife.network.NetworkTools;
 import matrix.the.net_knife.utils.CommonUtil;
+import matrix.the.net_knife.utils.CustomEditText;
 import matrix.the.net_knife.utils.ProcessStream.ProcessStreamReader;
 import matrix.the.net_knife.utils.ShellProcess.OnComplete;
 
@@ -30,7 +31,7 @@ public class PingFragment extends Fragment implements ProcessStreamReader, OnCom
     private final Handler mHandler = new Handler();
     private static String sline = "";
     private Button actionButton;
-    private EditText inputEditText;
+    private CustomEditText inputEditText;
     private TextView consoleTextView;
     private Typeface font;
     private View view;
@@ -79,7 +80,10 @@ public class PingFragment extends Fragment implements ProcessStreamReader, OnCom
             }
         });
 
-        inputEditText = (EditText) view.findViewById(R.id.pingEditText);
+        inputEditText = (CustomEditText) view.findViewById(R.id.pingEditText);
+        inputEditText.addTextChangedListener(CommonUtil.editTextChanged());
+        inputEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        inputEditText.setImeActionLabel("PING", 5);
         inputEditText.setOnEditorActionListener(new TextView.OnEditorActionListener()
         {
             @Override
@@ -97,7 +101,7 @@ public class PingFragment extends Fragment implements ProcessStreamReader, OnCom
         });
 
         consoleTextView = (TextView) view.findViewById(R.id.pingResultText);
-        consoleTextView.setText("Input a valid hostname or IPv4 address and press the button to probe the host using ICMP packets");
+        consoleTextView.setText("Input a valid hostname or IP address and press the button to probe the host using ICMP packets");
 
         if (mItem != null)
         {
@@ -123,7 +127,7 @@ public class PingFragment extends Fragment implements ProcessStreamReader, OnCom
 
         if ((mItem.worker != null && !mItem.worker.checkArgs(args)) || (mItem.tworker != null && !mItem.tworker.checkArgs(args)))
         {
-            consoleTextView.setText("Please enter a valid hostname (like google.com) or IPv4 address (like 8.8.8.8)");
+            consoleTextView.setText("Please enter a valid hostname (like google.com) or IP address (like 8.8.8.8)");
         }
         else
         {
