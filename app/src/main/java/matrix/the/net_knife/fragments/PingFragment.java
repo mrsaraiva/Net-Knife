@@ -2,6 +2,7 @@ package matrix.the.net_knife.fragments;
 
 import android.graphics.Typeface;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -12,6 +13,8 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.regex.Pattern;
 
 import matrix.the.net_knife.R;
 import matrix.the.net_knife.network.NetworkTools;
@@ -37,6 +40,19 @@ public class PingFragment extends Fragment implements ProcessStreamReader, OnCom
     private View view;
     private int i;
     private String textBuffer = "";
+
+    // Patterns for ping util result
+    private static Pattern pingTTLExcPtn = Pattern.compile("From (.+): icmp_seq=(\\d+) Time to live exceeded");
+    private static Pattern pingUnknHostPtn = Pattern.compile("ping: unknown host (.+)");
+    private static Pattern pingConnNetUnreachPtn = Pattern.compile("connect: Network is unreachable");
+    private static Pattern pingSmsgNetUnreachPtn = Pattern.compile("ping: sendmsg: Network is unreachable");
+    private static Pattern pingBcastPtn = Pattern.compile("Do you want to ping broadcast\\? Then -b");
+    private static Pattern pingSckNotPtn = Pattern.compile("ping: icmp open socket: Operation not permitted");
+    private static Pattern pingFromNetUnreachPtn = Pattern.compile("From (.+): icmp_seq=(\\d+) Destination Host Unreachable");
+    private static Pattern pingResultPtn = Pattern.compile("(\\d+) bytes from (.+?)(\\s\\((.+)\\))?: icmp_seq=(\\d+) ttl=(\\d+)( time=(\\d+.\\d+) ms)?");
+    private static Pattern pingBfFinalResultPtn = Pattern.compile("(\\d+) packets transmitted, (\\d+) received, (\\d+)% packet loss, time (\\d+)ms");
+    private static Pattern pingBfFinalResultErrPtn = Pattern.compile("(\\d+) packets transmitted, (\\d+) received, \\+(\\d+) errors, (\\d+)% packet loss, time (\\d+)ms");
+    private static Pattern pingFinalResultPtn = Pattern.compile("rtt min/avg/max/mdev = (.+)/(.+)/(.+)/(.+) ms");
 
     public PingFragment()
     {
@@ -103,6 +119,7 @@ public class PingFragment extends Fragment implements ProcessStreamReader, OnCom
         consoleTextView = (TextView) view.findViewById(R.id.pingResultText);
         consoleTextView.setText("Input a valid hostname or IP address and press the button to probe the host using ICMP packets");
 
+
         if (mItem != null)
         {
             actionButton.setText(mItem.content);
@@ -166,6 +183,10 @@ public class PingFragment extends Fragment implements ProcessStreamReader, OnCom
     public void onComplete(String results)
     {
         consoleTextView.append("\n" + results);
+        if (consoleTextView.getText().toString().contains("statistics"))
+        {
+            Snackbar.make(view, "Ping completed!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        }
         actionButton.setEnabled(true);
     }
 }

@@ -92,7 +92,7 @@ public class CustomEditText extends LinearLayout
         {
             // get the text and colors specified using the names in attrs.xml
             hintText = a.getString(R.styleable.CustomEditText_hintText);
-            deleteButtonRes = a.getResourceId(R.styleable.CustomEditText_deleteButtonRes, R.drawable.text_field_clear_btn);
+            deleteButtonRes = a.getResourceId(R.styleable.CustomEditText_deleteButtonRes, R.drawable.ic_text_field_clear_btn);
 
         }
         finally
@@ -104,6 +104,8 @@ public class CustomEditText extends LinearLayout
 
         this.addView(editText);
         this.addView(clearTextButton);
+
+
         editText.addTextChangedListener(txtEntered());
 
 
@@ -254,6 +256,7 @@ public class CustomEditText extends LinearLayout
 
         if (effect == 0)
         {
+            clearTextButton.setVisibility(View.INVISIBLE);
             clearTextButton.startAnimation(fade_in);
         }
         else

@@ -26,7 +26,8 @@ public class NetworkTools
     {
         networkToolBin.put("arp", appDir + "/arp");
         networkToolBin.put("nslookup", appDir + "/nslookup");
-        networkToolBin.put("ping", appDir + "/ping");
+        //networkToolBin.put("ping", appDir + "/ping");
+        networkToolBin.put("ping", "ping");
         networkToolBin.put("pscan", appDir + "/pscan");
         networkToolBin.put("traceroute", appDir + "/traceroute");
         networkToolBin.put("whois", appDir + "/whois");

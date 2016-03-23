@@ -9,15 +9,18 @@ import android.view.View;
 
 import matrix.the.net_knife.R;
 
-public class WifiScanner extends AppCompatActivity {
+public class WifiScanner extends AppCompatActivity
+{
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wifi_scanner);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -26,6 +29,8 @@ public class WifiScanner extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        */
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
