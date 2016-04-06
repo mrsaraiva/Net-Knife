@@ -2,6 +2,7 @@ package matrix.the.net_knife.fragments;
 
 import android.graphics.Typeface;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -14,6 +15,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import matrix.the.net_knife.R;
 import matrix.the.net_knife.network.NetworkTools;
@@ -182,7 +186,21 @@ public class PortScannerFragment extends Fragment implements ProcessStreamReader
     @Override
     public void onComplete(String results)
     {
-        consoleTextView.append("\n" + results);
+        if (textBuffer.contains("    open"))
+        {
+            Pattern ptn = Pattern.compile("    open");
+            Matcher matcher = ptn.matcher(textBuffer);
+            int openPortsCount = 0;
+            while(matcher.find())
+            {
+                openPortsCount++;
+            }
+            Snackbar.make(view, "Port scan finished, " + openPortsCount + " open ports found! :)", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        }
+        else
+        {
+            Snackbar.make(view, "No open ports found x(", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        }
         actionButton.setEnabled(true);
     }
 

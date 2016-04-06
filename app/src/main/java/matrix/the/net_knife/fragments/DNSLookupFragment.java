@@ -2,6 +2,7 @@ package matrix.the.net_knife.fragments;
 
 import android.graphics.Typeface;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.text.Editable;
@@ -185,7 +186,14 @@ public class DNSLookupFragment extends Fragment implements ProcessStreamReader, 
     @Override
     public void onComplete(String results)
     {
-        consoleTextView.append("\n" + results);
+        if (textBuffer.contains("Name:"))
+        {
+            Snackbar.make(view, "DNS Lookup finished :)", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        }
+        else
+        {
+            Snackbar.make(view, "No DNS A entry found x(", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        }
         actionButton.setEnabled(true);
     }
 }

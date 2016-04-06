@@ -2,6 +2,7 @@ package matrix.the.net_knife.fragments;
 
 import android.graphics.Typeface;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -160,7 +161,14 @@ public class WhoisFragment extends Fragment implements ProcessStreamReader, OnCo
     @Override
     public void onComplete(String results)
     {
-        consoleTextView.append("\n" + results);
+        if (textBuffer.contains("domain:"))
+        {
+            Snackbar.make(view, "Whois completed :)", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        }
+        else
+        {
+            Snackbar.make(view, "No Whois entry found x(", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        }
         actionButton.setEnabled(true);
     }
 }

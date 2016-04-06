@@ -2,6 +2,7 @@ package matrix.the.net_knife.fragments;
 
 import android.graphics.Typeface;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -129,7 +130,14 @@ public class ArpFragment extends Fragment implements ProcessStreamReader, OnComp
     @Override
     public void onComplete(String results)
     {
-        consoleTextView.append("\n" + results);
+        if (textBuffer.contains(":"))
+        {
+            Snackbar.make(view, "ARP completed :)", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        }
+        else
+        {
+            Snackbar.make(view, "No entries on ARP table x(", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        }
         actionButton.setEnabled(true);
     }
 }

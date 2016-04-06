@@ -2,6 +2,7 @@ package matrix.the.net_knife.fragments;
 
 import android.graphics.Typeface;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -116,7 +117,7 @@ public class TracerouteFragment extends Fragment implements ProcessStreamReader,
     public void doAction()
     {
         String[] args = new String[2];
-        args[0] = "-w 1 -n -m 20";
+        args[0] = "-I -w 1 -n -m 20";
         args[1] = inputEditText.getText().toString();
 
         consoleTextView.setText("");
@@ -163,7 +164,14 @@ public class TracerouteFragment extends Fragment implements ProcessStreamReader,
     @Override
     public void onComplete(String results)
     {
-        consoleTextView.append("\n" + results);
+        if (textBuffer.contains("ms"))
+        {
+            Snackbar.make(view, "Traceroute completed :)", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        }
+        else
+        {
+            Snackbar.make(view, "Traceroute failed x(", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        }
         actionButton.setEnabled(true);
     }
 }

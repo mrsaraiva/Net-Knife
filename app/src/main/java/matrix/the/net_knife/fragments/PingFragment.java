@@ -182,10 +182,13 @@ public class PingFragment extends Fragment implements ProcessStreamReader, OnCom
     @Override
     public void onComplete(String results)
     {
-        consoleTextView.append("\n" + results);
-        if (consoleTextView.getText().toString().contains("statistics"))
+        if (pingFinalResultPtn.matcher(textBuffer).find())
         {
-            Snackbar.make(view, "Ping completed!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            Snackbar.make(view, "Ping completed :)", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        }
+        else
+        {
+            Snackbar.make(view, "Ping failed x(", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         }
         actionButton.setEnabled(true);
     }
