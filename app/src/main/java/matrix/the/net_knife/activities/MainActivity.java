@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity
     private Button favoriteButtonTwo;
     private Button favoriteButtonThree;
     private Button favoriteButtonFour;
+    private TextView title;
     private Typeface font;
 
     private static final String MY_PREF = "PREFERENCES";
@@ -79,6 +81,7 @@ public class MainActivity extends AppCompatActivity
         sharedPref = getSharedPreferences(MY_PREF, Context.MODE_PRIVATE);
         font = Typeface.createFromAsset(this.getAssets(), "fontawesome-webfont.ttf");
 
+        title               = (TextView) this.findViewById(R.id.text_favorities_title);
         favoriteButtonOne   = (Button) this.findViewById(R.id.main_btn_favorites_one);
         favoriteButtonTwo   = (Button) this.findViewById(R.id.main_btn_favorites_two);
         favoriteButtonThree = (Button) this.findViewById(R.id.main_btn_favorites_three);
@@ -90,6 +93,8 @@ public class MainActivity extends AppCompatActivity
     private void setFavoritiesButtons()
     {
         final List<CounterUtil.Section> sections = CounterUtil.getTopSections(sharedPref);
+
+        title.setVisibility(View.INVISIBLE);
 
         Button buttons[] = {
             favoriteButtonOne,
@@ -103,10 +108,12 @@ public class MainActivity extends AppCompatActivity
             Button button = buttons[i];
             final CounterUtil.Section section = sections.get(i);
 
-            if (section.value > 0)
+            if (section.value > 2)
             {
+                title.setVisibility(View.VISIBLE);
+
                 button.setTypeface(font);
-                button.setTextSize(22);
+                button.setTextSize(32);
                 button.setVisibility(View.VISIBLE);
                 button.setText(getButtonSectionText(section));
                 button.setOnClickListener(new View.OnClickListener() {
@@ -125,37 +132,38 @@ public class MainActivity extends AppCompatActivity
 
     public String getButtonSectionText(CounterUtil.Section section)
     {
+        String text = null;
         if ( section.key.equals("PING") )
         {
-            return "PING";
+            return String.format("%s Ping", getApplicationContext().getResources().getString(R.string.fa_share_alt));
         }
         if ( section.key.equals("TRACEROUTE") )
         {
-            return "TRACEROUTE";
+            return String.format("%s Trace", getApplicationContext().getResources().getString(R.string.fa_list_ul));
         }
         if ( section.key.equals("ARP") )
         {
-            return "ARP";
+            return String.format("%s ARP", getApplicationContext().getResources().getString(R.string.fa_sitemap));
         }
         if ( section.key.equals("WHOIS") )
         {
-            return "WHOIS";
+            return String.format("%s Whois", getApplicationContext().getResources().getString(R.string.fa_question));
         }
         if ( section.key.equals("DNS_LOOKUP") )
         {
-            return "DNS_LOOKUP";
+            return String.format("%s DNS Lookup", getApplicationContext().getResources().getString(R.string.fa_search));
         }
         if ( section.key.equals("PORT_SCANNER") )
         {
-            return "PORT_SCANNER";
+            return String.format("%s Ports", getApplicationContext().getResources().getString(R.string.fa_bullseye));
         }
         if ( section.key.equals("WIFI_SCANNER") )
         {
-            return "WIFI_SCANNER";
+            return String.format("%s Whois", getApplicationContext().getResources().getString(R.string.fa_wifi));
         }
         if ( section.key.equals("HOST_MONITOR") )
         {
-            return "HOST_MONITOR";
+            return String.format("%s Host Monitor", getApplicationContext().getResources().getString(R.string.fa_eye));
         }
         
         return "";
