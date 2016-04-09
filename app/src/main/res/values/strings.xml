@@ -804,6 +804,10 @@
         <item>yu whois.ripe.net</item>
         <item>za.com whois.centralnic.com</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_base">BaseActivity</string>
 </resources>
 
 

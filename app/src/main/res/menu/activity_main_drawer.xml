@@ -34,6 +34,11 @@
             android:id="@+id/nav_hostmonitor"
             android:icon="@drawable/ic_menu_hostmonitor"
             android:title="Host Monitor" />
+        <item
+            android:id="@+id/teste_novo"
+            android:icon="@drawable/ic_menu_hostmonitor"
+            android:title="Teste" />
+
     </group>
 
     <item android:title="Communicate">
