@@ -1,5 +1,15 @@
 <resources>
     <string name="app_name">Net-Knife</string>
+    <string name="wifi_net_title">WiFi Networks Detected</string>
+    <string name="wifi_no_data">No networks detected</string>
+    <string name="wscan_x_axis">Wi-Fi Channels</string>
+    <string name="wscan_y_axis">Signal Power [dBm]</string>
+    <string name="ssid_text">SSID</string>
+    <string name="bssid_text">BSSID</string>
+    <string name="rx_text">Rx</string>
+    <string name="ch_text">Ch</string>
+    <string name="freq_text">freq</string>
+
     <string name="app_dir">/data/data/matrix.the.net_knife</string>
     <string name="busybox_bin">/data/data/matrix.the.net_knife/lib/libbusybox.so</string>
     <string name="busybox_symlink">/data/data/matrix.the.net_knife/busybox</string>

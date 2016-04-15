@@ -30,7 +30,8 @@ import matrix.the.net_knife.utils.CounterUtil;
 import matrix.the.net_knife.utils.SystemProperties;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener
+{
 
     private SharedPreferences sharedPref;
     private Button favoriteButtonOne;
@@ -43,25 +44,23 @@ public class MainActivity extends AppCompatActivity
     private static final String MY_PREF = "PREFERENCES";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Snackbar.make(view, "Send an e-mail to the dev", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
-        */
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -81,11 +80,11 @@ public class MainActivity extends AppCompatActivity
         sharedPref = getSharedPreferences(MY_PREF, Context.MODE_PRIVATE);
         font = Typeface.createFromAsset(this.getAssets(), "fontawesome-webfont.ttf");
 
-        title               = (TextView) this.findViewById(R.id.text_favorities_title);
-        favoriteButtonOne   = (Button) this.findViewById(R.id.main_btn_favorites_one);
-        favoriteButtonTwo   = (Button) this.findViewById(R.id.main_btn_favorites_two);
+        title = (TextView) this.findViewById(R.id.text_favorities_title);
+        favoriteButtonOne = (Button) this.findViewById(R.id.main_btn_favorites_one);
+        favoriteButtonTwo = (Button) this.findViewById(R.id.main_btn_favorites_two);
         favoriteButtonThree = (Button) this.findViewById(R.id.main_btn_favorites_three);
-        favoriteButtonFour  = (Button) this.findViewById(R.id.main_btn_favorites_four);
+        favoriteButtonFour = (Button) this.findViewById(R.id.main_btn_favorites_four);
 
         setFavoritiesButtons();
     }
@@ -97,10 +96,10 @@ public class MainActivity extends AppCompatActivity
         title.setVisibility(View.INVISIBLE);
 
         Button buttons[] = {
-            favoriteButtonOne,
-            favoriteButtonTwo,
-            favoriteButtonThree,
-            favoriteButtonFour
+                favoriteButtonOne,
+                favoriteButtonTwo,
+                favoriteButtonThree,
+                favoriteButtonFour
         };
 
         for (int i = 0; i < 4; i++)
@@ -108,17 +107,19 @@ public class MainActivity extends AppCompatActivity
             Button button = buttons[i];
             final CounterUtil.Section section = sections.get(i);
 
-            if (section.value > 2)
+            if (section.value > 1)
             {
                 title.setVisibility(View.VISIBLE);
 
                 button.setTypeface(font);
-                button.setTextSize(32);
                 button.setVisibility(View.VISIBLE);
                 button.setText(getButtonSectionText(section));
-                button.setOnClickListener(new View.OnClickListener() {
+                button.setTextSize(16);
+                button.setOnClickListener(new View.OnClickListener()
+                {
                     @Override
-                    public void onClick(View v) {
+                    public void onClick(View v)
+                    {
                         getSelectedSession(CounterUtil.getNavIdBySescion(section));
                     }
                 });
@@ -133,68 +134,75 @@ public class MainActivity extends AppCompatActivity
     public String getButtonSectionText(CounterUtil.Section section)
     {
         String text = null;
-        if ( section.key.equals("PING") )
+        if (section.key.equals("PING"))
         {
-            return String.format("%s Ping", getApplicationContext().getResources().getString(R.string.fa_share_alt));
+            return String.format("%s\n\n Ping", getApplicationContext().getResources().getString(R.string.fa_share_alt));
         }
-        if ( section.key.equals("TRACEROUTE") )
+        if (section.key.equals("TRACEROUTE"))
         {
-            return String.format("%s Trace", getApplicationContext().getResources().getString(R.string.fa_list_ul));
+            return String.format("%s\n\nTraceroute", getApplicationContext().getResources().getString(R.string.fa_list_ul));
         }
-        if ( section.key.equals("ARP") )
+        if (section.key.equals("ARP"))
         {
-            return String.format("%s ARP", getApplicationContext().getResources().getString(R.string.fa_sitemap));
+            return String.format("%s\n\nARP", getApplicationContext().getResources().getString(R.string.fa_sitemap));
         }
-        if ( section.key.equals("WHOIS") )
+        if (section.key.equals("WHOIS"))
         {
-            return String.format("%s Whois", getApplicationContext().getResources().getString(R.string.fa_question));
+            return String.format("%s\n\nWhois", getApplicationContext().getResources().getString(R.string.fa_question));
         }
-        if ( section.key.equals("DNS_LOOKUP") )
+        if (section.key.equals("DNS_LOOKUP"))
         {
-            return String.format("%s DNS Lookup", getApplicationContext().getResources().getString(R.string.fa_search));
+            return String.format("%s\n\nDNS Lookup", getApplicationContext().getResources().getString(R.string.fa_search));
         }
-        if ( section.key.equals("PORT_SCANNER") )
+        if (section.key.equals("PORT_SCANNER"))
         {
-            return String.format("%s Ports", getApplicationContext().getResources().getString(R.string.fa_bullseye));
+            return String.format("%s\n\nPort Scanner", getApplicationContext().getResources().getString(R.string.fa_bullseye));
         }
-        if ( section.key.equals("WIFI_SCANNER") )
+        if (section.key.equals("WIFI_SCANNER"))
         {
-            return String.format("%s Whois", getApplicationContext().getResources().getString(R.string.fa_wifi));
+            return String.format("%s\n\nWi-Fi Scanner", getApplicationContext().getResources().getString(R.string.fa_wifi));
         }
-        if ( section.key.equals("HOST_MONITOR") )
+        if (section.key.equals("HOST_MONITOR"))
         {
-            return String.format("%s Host Monitor", getApplicationContext().getResources().getString(R.string.fa_eye));
+            return String.format("%s\n\nHost Monitor", getApplicationContext().getResources().getString(R.string.fa_eye));
         }
-        
+
         return "";
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
+        if (drawer.isDrawerOpen(GravityCompat.START))
+        {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        }
+        else
+        {
             super.onBackPressed();
         }
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_settings)
+        {
             return true;
         }
 
@@ -203,7 +211,8 @@ public class MainActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(MenuItem item)
+    {
         // Handle navigation view item clicks here.
 
         getSelectedSession(item.getItemId());
@@ -283,7 +292,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onResumeFragments() {
+    protected void onResumeFragments()
+    {
         super.onResumeFragments();
         setFavoritiesButtons();
     }
