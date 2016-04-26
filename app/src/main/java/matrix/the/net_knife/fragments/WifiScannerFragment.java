@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
@@ -27,7 +26,7 @@ import matrix.the.net_knife.network.WiFiDataNetwork;
  */
 public class WifiScannerFragment extends Fragment
 {
-    private final String TAG = "fragment_wifi_scanner";
+    private final String TAG = "fragment_wifi_scanner"; // Tag do Fragment WifiScanner
     private WiFiData mWifiData;
     private View view;
 
@@ -71,10 +70,10 @@ public class WifiScannerFragment extends Fragment
         mRenderer.setMargins(new int[]{20, 30, 15, 0});
         mRenderer.setZoomButtonsVisible(true);
         mRenderer.setPointSize(5);
-        mRenderer.setXAxisMin(-90);
-        mRenderer.setXAxisMax(-30);
-        mRenderer.setYAxisMin(1);
-        mRenderer.setYAxisMax(14);
+        mRenderer.setYAxisMin(-90);
+        mRenderer.setYAxisMax(-30);
+        mRenderer.setXAxisMin(1);
+        mRenderer.setXAxisMax(14);
 
         // Chart view
         LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.chart);
@@ -82,13 +81,19 @@ public class WifiScannerFragment extends Fragment
         mWifiData = null;
 
         mChartView = ChartFactory.getLineChartView(view.getContext(), mDataset, mRenderer);
-        mCurrentSeries = new XYSeries("chucochuco");
+        mCurrentSeries = new XYSeries("Redeeees");
+        mDataset.addSeries(mCurrentSeries);
+        // create a new renderer for the new series
+        XYSeriesRenderer renderer = new XYSeriesRenderer();
+        mRenderer.addSeriesRenderer(renderer);
+        // set some renderer properties
+        renderer.setPointStyle(PointStyle.CIRCLE);
+        renderer.setFillPoints(false);
+        renderer.setDisplayChartValues(true);
+        renderer.setDisplayChartValuesDistance(10);
+        mCurrentRenderer = renderer;
+        mChartView.repaint();
 
-        TextView textView = new TextView(getActivity());
-        textView.setText("Cadê esse textview?!");
-        textView.setTextSize(50);
-
-        //linearLayout.addView(textView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         linearLayout.addView(mChartView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         plotData();
@@ -121,20 +126,6 @@ public class WifiScannerFragment extends Fragment
 */
     public void plotData()
     {
-        String seriesTitle = "Series " + (mDataset.getSeriesCount() + 1);
-        // create a new series of data
-        XYSeries series = new XYSeries(seriesTitle);
-        mDataset.addSeries(series);
-        mCurrentSeries = series;
-        // create a new renderer for the new series
-        XYSeriesRenderer renderer = new XYSeriesRenderer();
-        mRenderer.addSeriesRenderer(renderer);
-        // set some renderer properties
-        renderer.setPointStyle(PointStyle.CIRCLE);
-        renderer.setFillPoints(false);
-        renderer.setDisplayChartValues(true);
-        renderer.setDisplayChartValuesDistance(10);
-        mCurrentRenderer = renderer;
         mChartView.repaint();
     }
 

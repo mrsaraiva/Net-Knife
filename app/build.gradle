@@ -26,4 +26,5 @@ dependencies {
     compile 'com.android.support:support-v4:23.2.1'
     compile 'com.android.support:design:23.2.1'
     compile 'org.achartengine:achartengine:1.2.0'
+    compile 'com.github.PhilJay:MPAndroidChart:v2.2.4'
 }
