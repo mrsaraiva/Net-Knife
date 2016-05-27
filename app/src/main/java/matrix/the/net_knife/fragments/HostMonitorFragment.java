@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import matrix.the.net_knife.R;
 
 /**
- * A placeholder fragment containing a simple view.
+ * Host Monitor Fragment
  */
 public class HostMonitorFragment extends Fragment {
 

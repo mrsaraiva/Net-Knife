@@ -18,7 +18,7 @@ import matrix.the.net_knife.utils.ProcessStream.ProcessStreamReader;
 import matrix.the.net_knife.utils.ShellProcess.OnComplete;
 
 /**
- * A placeholder fragment containing a simple view.
+ * Arp Fragment
  */
 public class ArpFragment extends Fragment implements ProcessStreamReader, OnComplete
 {
