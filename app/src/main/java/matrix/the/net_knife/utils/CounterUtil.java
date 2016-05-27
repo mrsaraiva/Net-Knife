@@ -32,7 +32,7 @@ public class CounterUtil
             R.id.nav_whois,
             R.id.nav_portscanner,
             R.id.nav_wifiscanner,
-            R.id.nav_hostmonitor     
+//            R.id.nav_hostmonitor
     };
 
     public static int getNavIdBySescion(Section section)

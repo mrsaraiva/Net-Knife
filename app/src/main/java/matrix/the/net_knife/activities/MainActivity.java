@@ -273,12 +273,12 @@ public class MainActivity extends AppCompatActivity
                 MainActivity.this.startActivity(intent);
                 section = "WIFI_SCANNER";
                 break;
-            case R.id.nav_hostmonitor:
-                intent = new Intent(MainActivity.this, HostMonitor.class);
-                intent.putExtra("ARG_ITEM_ID", "6");
-                MainActivity.this.startActivity(intent);
-                section = "HOST_MONITOR";
-                break;
+//            case R.id.nav_hostmonitor:
+//                intent = new Intent(MainActivity.this, HostMonitor.class);
+//                intent.putExtra("ARG_ITEM_ID", "6");
+//                MainActivity.this.startActivity(intent);
+//                section = "HOST_MONITOR";
+//                break;
         }
 
 //        CounterUtil.getTopSections(null);
