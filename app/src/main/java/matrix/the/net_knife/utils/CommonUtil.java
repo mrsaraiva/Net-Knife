@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -97,5 +98,17 @@ public class CommonUtil
         }
 
         return "libbusybox_arm.so";
+    }
+
+    public static int dpToPx(int dp, View view) {
+        DisplayMetrics displayMetrics = view.getContext().getResources().getDisplayMetrics();
+        int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        return px;
+    }
+
+    public static int pxToDp(int px, View view) {
+        DisplayMetrics displayMetrics = view.getContext().getResources().getDisplayMetrics();
+        int dp = Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        return dp;
     }
 }
